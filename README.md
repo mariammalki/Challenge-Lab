@@ -70,14 +70,14 @@ kubectl get svc -n flask-app
 ![Architecture des microservices](docs/captures/pods-svc.png)
 
 Test des microservices
-Front-end (interface web)
+-Front-end (interface web)
 Depuis la machine hôte :
 curl http://localhost:30080
 Ajouter un utilisateur via le formulaire
 ![Architecture des microservices](docs/captures/formulaire.png)
 Vérifier que la liste s’actualise
 
-Back1
+-Back1
 
 kubectl run debug --rm -it --image=busybox --namespace=flask-app -- /bin/sh
 # Dans le pod debug
@@ -91,11 +91,14 @@ curl -X POST http://back1-service:5001/add_user \
 
 ![Architecture des microservices](docs/captures/add-user.png)
 
-Back2
+-Back2
 
 wget -qO- http://back2-service:5002/users/count
 
 ![Architecture des microservices](docs/captures/test-back2.png)
+
+-db
+![Architecture des microservices](docs/captures/test-db.png)
 Vérification de la persistance
 Ajouter quelques utilisateurs via le front-end ou back1.
 
