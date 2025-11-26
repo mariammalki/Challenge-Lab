@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Formulaire</title>
+</head>
+<body>
+<h1>Formulaire</h1>
+<form method="POST">
+    <input type="text" name="name" placeholder="Nom" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <button type="submit">Ajouter</button>
+</form>
+
+<h2>Utilisateurs</h2>
+<ul>
+{% for u in users %}
+    <li>{{ u['name'] }} ({{ u['email'] }})</li>
+{% endfor %}
+</ul>
+</body>
+</html>

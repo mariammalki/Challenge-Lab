@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back1
+  namespace: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back1
+  template:
+    metadata:
+      labels:
+        app: back1
+    spec:
+      containers:
+      - name: back1
+        image: mariem507/back1:latest
+        ports:
+        - containerPort: 5001
+        env:
+        - name: DB_HOST
+          value: db-service
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_DB
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back1-service
+  namespace: flask-app
+spec:
+  type: ClusterIP
+  selector:
+    app: back1
+  ports:
+    - port: 5001
+      targetPort: 5001
